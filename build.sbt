@@ -34,6 +34,9 @@ lazy val httpToGrpc = (project in file("http-to-grpc"))
 lazy val grpcService = (project in file("grpc-service"))
   .enablePlugins(AkkaGrpcPlugin, DockerPlugin, JavaAppPackaging, JavaAgent)
   .settings(
+    libraryDependencies ++= Seq(
+      "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf",
+    ),
     javaAgents += "org.mortbay.jetty.alpn" % "jetty-alpn-agent" % alpnVersion % "runtime",
     dockerExposedPorts := Seq(8080),
   )
